@@ -25,10 +25,6 @@ const userSchema = new mongoose.Schema(
       enum: ["admin", "user"],
       default: "user",
     },
-    tasks: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Task",
-    },
   },
   {
     timestamps: true,

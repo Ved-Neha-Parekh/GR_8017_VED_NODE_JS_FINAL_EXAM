@@ -10,5 +10,8 @@ userRouter.post("/signup",userController.handelSignup);
 userRouter.get("/login",userController.renderLoginPage);
 userRouter.post("/login",userController.handelLogin);
 
-userRouter.get("/",isAuthenticated,userController.renderDashboard); // use isAdmin
+userRouter.get("/",isAuthenticated,userController.renderDashboard); 
+
+userRouter.get("/logout", userController.handelLogout);
+
 export default userRouter;

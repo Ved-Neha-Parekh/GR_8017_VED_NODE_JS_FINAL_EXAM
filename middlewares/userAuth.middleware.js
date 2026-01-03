@@ -22,14 +22,14 @@ const isAuthenticated = async(req,res,next) =>{
     }
 }
 
-// const isAdmin = (req,res,next) => {
-//     if (req.user && req.user.role == "admin") {
-//         next();
-//     } else {
-//         console.log("Access denied...");
-//         return res.status(401).json({message:"Access denied"});
-//     }
-// }
+const isAdmin = (req,res,next) => {
+    if (req.user && req.user.role == "admin") {
+        next();
+    } else {
+        console.log("Access denied...");
+        return res.redirect("/task/error-401");
+    }
+}
 
 
-export {isAuthenticated};
+export {isAuthenticated,isAdmin};

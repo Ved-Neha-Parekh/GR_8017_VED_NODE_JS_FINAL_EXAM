@@ -5,20 +5,11 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    unique:true,
+    lowercase:true,
   },
-  description: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  createBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
-  createAt: {
-    type: Date,
-    default: Date.now,
-  },
+},{
+  timestamps:true,
 });
 
 const Category = mongoose.model("Category",categorySchema);

@@ -28,38 +28,41 @@
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <% if (typeof user !=='undefined' && user.role==='admin' ) { %>
-                                                <th>Created By</th>
+                                            <% if (user.role==='admin' ) { %>
+                                                <th>User</th>
                                                 <% } %>
                                                     <th>Title</th>
-                                                    <th>Description</th>
-                                                    <th>Priority</th>
                                                     <th>Category</th>
+                                                    <th>Priority</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% if (tasks && tasks.length> 0) { %>
                                             <% tasks.forEach(task=> { %>
                                                 <tr>
-                                                    <% if (typeof user !=='undefined' && user.role==='admin' ) { %>
+                                                    <% if (user.role==='admin' ) { %>
                                                         <td>
                                                             <%= task.createdBy ? task.createdBy.username : 'Unknown' %>
                                                         </td>
                                                         <% } %>
-
+                                
                                                             <td>
                                                                 <%= task.title %>
                                                             </td>
                                                             <td>
-                                                                <%= task.description %>
+                                                                <%= task.category.name %>
                                                             </td>
+                                
                                                             <td>
-                                                                <%= task.priority %>
-                                                            </td>
-                                                            <td>
-                                                                <%= task.category %>
+                                                                <% if(task.priority=='high' ) { %>
+                                                                    <span class="badge bg-danger">High</span>
+                                                                    <% } else if(task.priority=='medium' ) { %>
+                                                                        <span class="badge bg-warning">Medium</span>
+                                                                        <% } else { %>
+                                                                            <span class="badge bg-success">Low</span>
+                                                                            <% } %>
                                                             </td>
                                                             <td>
                                                                 <% if(task.status=='completed' ) { %>
@@ -68,17 +71,16 @@
                                                                         <span class="badge bg-warning">Pending</span>
                                                                         <% } %>
                                                             </td>
+                                
                                                             <td>
-                                                                <a href="#"
-                                                                    class="btn btn-cyan btn-sm text-white">Edit</a>
-                                                                <a href="#"
-                                                                    class="btn btn-danger btn-sm text-white">Delete</a>
+                                                                <a href="/task/edit-task/<%= task.id %>" class="btn btn-sm btn-info">Edit</a>
+                                                                <a href="/task/delete-task/<%= task.id %>" class="btn btn-sm btn-danger">Delete</a>
                                                             </td>
                                                 </tr>
                                                 <% }) %>
                                                     <% } else { %>
                                                         <tr>
-                                                            <td colspan="7" class="text-center">No tasks found.</td>
+                                                            <td colspan="6" class="text-center">No Tasks Found</td>
                                                         </tr>
                                                         <% } %>
                                     </tbody>

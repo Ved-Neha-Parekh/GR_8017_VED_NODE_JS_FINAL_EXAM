@@ -4,12 +4,12 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-12 d-flex no-block align-items-center">
-                    <h4 class="page-title">Tasks</h4>
+                    <h4 class="page-title">Edit Task</h4>
                     <div class="ms-auto text-end">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/tasks">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Create Task</li>
+                                <li class="breadcrumb-item"><a href="/task/tasks">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Edit Task</li>
                             </ol>
                         </nav>
                     </div>
@@ -23,32 +23,32 @@
                     <div class="card">
                         <form class="form-horizontal" action="" method="post">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Create New Task</h4>
+                                <h4 class="card-title mb-4">Edit Task Details</h4>
 
                                 <div class="form-group row">
                                     <label for="title" class="col-sm-3 text-end control-label col-form-label">Task
                                         Title</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="title" name="title"
-                                            placeholder="Enter Task Title" required>
+                                            placeholder="Enter Task Title" value="<%= task.title %>" required>
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <label for="category" class="col-sm-3 text-end control-label col-form-label">Task
                                         Category</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="category" name="category"
-                                            placeholder="Enter Task category" required>
+                                            placeholder="Enter Task category" value="<%= task.category.name %>" required>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="form-group row">
                                     <label for="description"
                                         class="col-sm-3 text-end control-label col-form-label">Description</label>
                                     <div class="col-sm-9">
                                         <textarea class="form-control" id="description" name="description" rows="3"
-                                            placeholder="Task details..."></textarea>
+                                            placeholder="Task details..."><%= task.description %></textarea>
                                     </div>
                                 </div>
 
@@ -56,7 +56,10 @@
                                     <label for="dueDate" class="col-sm-3 text-end control-label col-form-label">Due
                                         Date</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" id="dueDate" name="dueDate">
+                                        <% let dateValue='' ; if (task.dueDate) { 
+                                            dateValue=new Date(task.dueDate).toISOString().split('T')[0]; } %>
+                                            <input type="date" class="form-control" id="dueDate" name="dueDate"
+                                                value="<%= dateValue %>">
                                     </div>
                                 </div>
 
@@ -64,15 +67,18 @@
                                     <label class="col-sm-3 text-end control-label col-form-label">Priority</label>
                                     <div class="col-sm-9">
                                         <div class="form-check">
-                                            <input type="radio" class="form-check-input" id="high" name="priority" value="high">
+                                            <input type="radio" class="form-check-input" id="high" name="priority" value="high" <%=task.priority=='high'
+                                                ? 'checked' : '' %>>
                                             <label class="form-check-label mb-0" for="high">High</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="radio" class="form-check-input" id="medium" name="priority" value="medium" checked>
+                                            <input type="radio" class="form-check-input" id="medium" name="priority" value="medium"
+                                                <%=task.priority=='medium' ? 'checked' : '' %>>
                                             <label class="form-check-label mb-0" for="medium">Medium</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="radio" class="form-check-input" id="low" name="priority" value="low">
+                                            <input type="radio" class="form-check-input" id="low" name="priority" value="low" <%=task.priority=='low'
+                                                ? 'checked' : '' %>>
                                             <label class="form-check-label mb-0" for="low">Low</label>
                                         </div>
                                     </div>
@@ -80,15 +86,16 @@
 
                                 <div class="form-group row">
                                     <label class="col-sm-3 text-end control-label col-form-label">Status</label>
+
                                     <div class="col-sm-9">
                                         <div class="form-check">
                                             <input type="radio" class="form-check-input" id="pending" name="status"
-                                                value="pending" checked>
+                                                value="pending" <%=task.status=='pending' ? 'checked' : '' %>>
                                             <label class="form-check-label mb-0" for="pending">Pending</label>
                                         </div>
                                         <div class="form-check">
                                             <input type="radio" class="form-check-input" id="completed" name="status"
-                                                value="completed">
+                                                value="completed" <%=task.status=='completed' ? 'checked' : '' %>>
                                             <label class="form-check-label mb-0" for="completed">Completed</label>
                                         </div>
                                     </div>
@@ -97,8 +104,8 @@
 
                             <div class="border-top">
                                 <div class="card-body">
-                                    <button type="submit" class="btn btn-primary">Save Task</button>
-                                    <a href="/tasks" class="btn btn-secondary">Cancel</a>
+                                    <button type="submit" class="btn btn-primary">Update Task</button>
+                                    <a href="/task/tasks" class="btn btn-secondary">Cancel</a>
                                 </div>
                             </div>
                         </form>

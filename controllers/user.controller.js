@@ -67,6 +67,11 @@ const userController = {
       return res.redirect("/user/login");
     }
   },
+  handelLogout(req,res) {
+    res.clearCookie("token");
+
+    return res.redirect("/user/login");
+  }
 };
 
 export default userController;
