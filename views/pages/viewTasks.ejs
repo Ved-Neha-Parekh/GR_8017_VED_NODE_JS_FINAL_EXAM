@@ -1,0 +1,93 @@
+<%- include("../partials/header") %>
+
+    <div class="page-wrapper">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">My Tasks</h4>
+                    <div class="ms-auto text-end">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">List</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Task List</h5>
+                            <div class="table-responsive">
+
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <% if (typeof user !=='undefined' && user.role==='admin' ) { %>
+                                                <th>Created By</th>
+                                                <% } %>
+                                                    <th>Title</th>
+                                                    <th>Description</th>
+                                                    <th>Priority</th>
+                                                    <th>Category</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (tasks && tasks.length> 0) { %>
+                                            <% tasks.forEach(task=> { %>
+                                                <tr>
+                                                    <% if (typeof user !=='undefined' && user.role==='admin' ) { %>
+                                                        <td>
+                                                            <%= task.createdBy ? task.createdBy.username : 'Unknown' %>
+                                                        </td>
+                                                        <% } %>
+
+                                                            <td>
+                                                                <%= task.title %>
+                                                            </td>
+                                                            <td>
+                                                                <%= task.description %>
+                                                            </td>
+                                                            <td>
+                                                                <%= task.priority %>
+                                                            </td>
+                                                            <td>
+                                                                <%= task.category %>
+                                                            </td>
+                                                            <td>
+                                                                <% if(task.status=='completed' ) { %>
+                                                                    <span class="badge bg-success">Completed</span>
+                                                                    <% } else { %>
+                                                                        <span class="badge bg-warning">Pending</span>
+                                                                        <% } %>
+                                                            </td>
+                                                            <td>
+                                                                <a href="#"
+                                                                    class="btn btn-cyan btn-sm text-white">Edit</a>
+                                                                <a href="#"
+                                                                    class="btn btn-danger btn-sm text-white">Delete</a>
+                                                            </td>
+                                                </tr>
+                                                <% }) %>
+                                                    <% } else { %>
+                                                        <tr>
+                                                            <td colspan="7" class="text-center">No tasks found.</td>
+                                                        </tr>
+                                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include("../partials/footer") %>
