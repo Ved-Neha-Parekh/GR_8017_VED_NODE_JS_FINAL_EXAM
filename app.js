@@ -17,6 +17,10 @@ app.use(cookieParser());
 app.use("/user",userRoutes);
 app.use("/task",taskRoutes);
 
+app.get("/", (req, res) => {
+  res.redirect("/user/login");
+});
+
 db()
   .then(() => {
     app.listen(port, () => {
