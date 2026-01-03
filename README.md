@@ -49,6 +49,15 @@ It implements:
 
 - Full access to **all user tasks**
 
+## 🔑 Admin Login Credentials
+
+> These credentials are provided for testing & demo purposes.
+
+```
+Email: admin@mail.com
+Password: 123
+```
+
 ### 👥 Multi-User Data Isolation
 
 - Each user sees only their own tasks
